@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   Text,
+  TextArea,
   TextField,
 } from "@radix-ui/themes";
 import type { MetaFunction } from "@remix-run/node";
@@ -25,7 +26,7 @@ export default function Index() {
 
   return (
     <>
-      <Flex direction={"column"} gap={"5"}>
+      <Flex direction={"column"} gap={"5"} style={{ marginBottom: "20px" }}>
         <Flex direction={"column"} gap={"0"}>
           <Heading align={"center"}>Code Translator</Heading>
           <Text size={"3"} align={"center"} as="div">
@@ -79,16 +80,18 @@ export default function Index() {
           </Flex>
         </Container>
       </Flex>
-      <Flex justify={"between"}>
+      <Flex justify={"center"} gap={"4"}>
         <Card>
           <Text size={"2"} align={"center"} as="div">
             Input
           </Text>
+          <TextArea style={{ minHeight: "60vh", minWidth: "30vw" }} />
         </Card>
         <Card>
           <Text size={"2"} align={"center"} as="div">
             Output
           </Text>
+          <TextArea style={{ minHeight: "60vh", minWidth: "30vw" }} />
         </Card>
       </Flex>
     </>
