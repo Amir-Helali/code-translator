@@ -1,4 +1,15 @@
+import {
+  Button,
+  Card,
+  Container,
+  DropdownMenu,
+  Flex,
+  Heading,
+  Text,
+  TextField,
+} from "@radix-ui/themes";
 import type { MetaFunction } from "@remix-run/node";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,34 +19,78 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const [selectedModel, setSelectedModel] = useState<"gpt-3.5" | "gpt-4">(
+    "gpt-3.5"
+  );
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <>
+      <Flex direction={"column"} gap={"5"}>
+        <Flex direction={"column"} gap={"0"}>
+          <Heading align={"center"}>Code Translator</Heading>
+          <Text size={"3"} align={"center"} as="div">
+            Translate code from one language to another.
+          </Text>
+        </Flex>
+        <Container size={"1"}>
+          <Flex direction={"column"} gap={"4"}>
+            <Text as="div" align={"center"}>
+              API Key
+            </Text>
+            <TextField.Input
+              placeholder="sk-****************"
+              type="password"
+              radius="large"
+            />
+            <Flex justify={"center"} gap={"4"}>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <Button variant="soft">
+                    Model
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.18179 6.18181C4.35753 6.00608 4.64245 6.00608 4.81819 6.18181L7.49999 8.86362L10.1818 6.18181C10.3575 6.00608 10.6424 6.00608 10.8182 6.18181C10.9939 6.35755 10.9939 6.64247 10.8182 6.81821L7.81819 9.81821C7.73379 9.9026 7.61934 9.95001 7.49999 9.95001C7.38064 9.95001 7.26618 9.9026 7.18179 9.81821L4.18179 6.81821C4.00605 6.64247 4.00605 6.35755 4.18179 6.18181Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </Button>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                  <DropdownMenu.Item
+                    onClick={() => setSelectedModel("gpt-3.5")}
+                  >
+                    GPT-3.5 Turbo
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item onClick={() => setSelectedModel("gpt-4")}>
+                    GPT-4 Turbo
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
+              <Button>Translate</Button>
+            </Flex>
+          </Flex>
+        </Container>
+      </Flex>
+      <Flex justify={"between"}>
+        <Card>
+          <Text size={"2"} align={"center"} as="div">
+            Input
+          </Text>
+        </Card>
+        <Card>
+          <Text size={"2"} align={"center"} as="div">
+            Output
+          </Text>
+        </Card>
+      </Flex>
+    </>
   );
 }
