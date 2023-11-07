@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/themes";
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
+import OpenAI from "openai";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,8 +29,31 @@ export default function Index() {
   );
   const languages = ["Python", "Javascript", "Java"];
   const [inputLanguage, setInputLanguage] = useState<string>(languages[0]);
+  const [inputCode, setInputCode] = useState<string>("");
   const [outputLanguage, setOutputLanguage] = useState<string>(languages[1]);
+  const [outputCode, setOutputCode] = useState<string>("");
   const [apiKey, setApiKey] = useState<string>();
+
+  const handleChange = async () => {
+    const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+    const prompt = `Translate the following code in language ${inputLanguage} to ${outputLanguage}. Here is the code: ${inputCode}`;
+    const completion = await openai.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a Code Translator and you should respond back with just the translated code and nothing else.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      model: "gpt-3.5-turbo",
+    });
+
+    setOutputCode(completion.choices[0].message.content ?? "");
+  };
 
   return (
     <>
@@ -72,7 +96,7 @@ export default function Index() {
                   </Select.Group>
                 </Select.Content>
               </Select.Root>
-              <Button>Translate</Button>
+              <Button onClick={handleChange}>Translate</Button>
             </Flex>
           </Flex>
         </Container>
@@ -102,7 +126,11 @@ export default function Index() {
               </Select.Content>
             </Select.Root>
           </Flex>
-          <TextArea style={{ minHeight: "60vh", minWidth: "30vw" }} />
+          <TextArea
+            value={inputCode}
+            style={{ minHeight: "60vh", minWidth: "30vw" }}
+            onChange={(value) => setInputCode(value.target.value)}
+          />
         </Card>
         <Card>
           <Flex justify={"center"} style={{ marginBottom: "10px" }}>
@@ -128,7 +156,10 @@ export default function Index() {
               </Select.Content>
             </Select.Root>
           </Flex>
-          <TextArea style={{ minHeight: "60vh", minWidth: "30vw" }} />
+          <TextArea
+            style={{ minHeight: "60vh", minWidth: "30vw" }}
+            value={outputCode}
+          />
         </Card>
       </Flex>
     </>
