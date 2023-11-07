@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
+import { Suspense } from "react";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -26,7 +27,9 @@ export default function App() {
       </head>
       <body>
         <Theme appearance="dark" accentColor="indigo">
-          <Outlet />
+          <Suspense fallback={<>Loading...</>}>
+            <Outlet />
+          </Suspense>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />

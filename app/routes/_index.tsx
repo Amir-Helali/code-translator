@@ -12,6 +12,7 @@ import {
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import OpenAI from "openai";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export const meta: MetaFunction = () => {
   return [
@@ -32,7 +33,7 @@ export default function Index() {
   const [inputCode, setInputCode] = useState<string>("");
   const [outputLanguage, setOutputLanguage] = useState<string>(languages[1]);
   const [outputCode, setOutputCode] = useState<string>("");
-  const [apiKey, setApiKey] = useState<string>();
+  const [apiKey, setApiKey] = useLocalStorage("apiKey", "");
 
   const handleChange = async () => {
     const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
@@ -70,6 +71,7 @@ export default function Index() {
               API Key
             </Text>
             <TextField.Input
+              value={apiKey}
               placeholder="sk-****************"
               type="password"
               radius="large"
