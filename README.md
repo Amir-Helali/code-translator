@@ -7,6 +7,8 @@ Single page app that translates code from one language to another. Try it [here]
 - Stores API key locally
 - Translate from one language to another
 
+## Screenshot
+![home](/images/home.jpg)
 
 ## Run Locally
 
