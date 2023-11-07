@@ -14,8 +14,11 @@ import { useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Code Translator" },
+    {
+      name: "description",
+      content: "Translate code from one language to another using ChatGPT.",
+    },
   ];
 };
 
@@ -23,10 +26,10 @@ export default function Index() {
   const [selectedModel, setSelectedModel] = useState<"gpt-3.5" | "gpt-4">(
     "gpt-3.5"
   );
-  const languages = ["python", "javascript", "java"];
+  const languages = ["Python", "Javascript", "Java"];
   const [inputLanguage, setInputLanguage] = useState<string>(languages[0]);
   const [outputLanguage, setOutputLanguage] = useState<string>(languages[1]);
-
+  const [apiKey, setApiKey] = useState<string>();
 
   return (
     <>
@@ -46,6 +49,7 @@ export default function Index() {
               placeholder="sk-****************"
               type="password"
               radius="large"
+              onChange={(v) => setApiKey(v.target.value)}
             />
             <Flex justify={"center"} gap={"4"}>
               <Select.Root defaultValue={selectedModel}>
@@ -75,7 +79,7 @@ export default function Index() {
       </Flex>
       <Flex justify={"center"} gap={"4"}>
         <Card>
-          <Flex justify={"center"}>
+          <Flex justify={"center"} style={{ marginBottom: "10px" }}>
             <Select.Root defaultValue={inputLanguage}>
               <Select.Trigger />
               <Select.Content>
@@ -101,8 +105,8 @@ export default function Index() {
           <TextArea style={{ minHeight: "60vh", minWidth: "30vw" }} />
         </Card>
         <Card>
-          <Flex justify={"center"}>
-          <Select.Root defaultValue={outputLanguage}>
+          <Flex justify={"center"} style={{ marginBottom: "10px" }}>
+            <Select.Root defaultValue={outputLanguage}>
               <Select.Trigger />
               <Select.Content>
                 <Select.Group>
