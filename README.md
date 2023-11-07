@@ -1,38 +1,24 @@
-# Welcome to Remix!
 
-- [Remix Docs](https://remix.run/docs)
+# Code Translator
 
-## Development
+Single page app that translates code from one language to another. Try it [here](https://code-translator.pages.dev/).
+## Features
 
-From your terminal:
+- Stores API key locally
+- Translate from one language to another
 
-```sh
-npm run dev
+
+## Run Locally
+
+Install dependencies
+
+```bash
+  npm install
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+Start the development server
 
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
+```bash
+  npm run dev
 ```
 
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
