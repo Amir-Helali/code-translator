@@ -25,8 +25,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [selectedModel, setSelectedModel] = useState<"gpt-3.5" | "gpt-4">(
-    "gpt-3.5"
+  const [selectedModel, setSelectedModel] = useState<"gpt-3.5-turbo" | "gpt-4-1106-preview">(
+    "gpt-3.5-turbo"
   );
   const languages = ["Python", "Javascript", "Java"];
   const [inputLanguage, setInputLanguage] = useState<string>(languages[0]);
@@ -84,14 +84,14 @@ export default function Index() {
                   <Select.Group>
                     <Select.Label>Models</Select.Label>
                     <Select.Item
-                      value="gpt-3.5"
-                      onClick={() => setSelectedModel("gpt-3.5")}
+                      value="gpt-3.5-turbo"
+                      onClick={() => setSelectedModel("gpt-3.5-turbo")}
                     >
                       GPT-3.5 Turbo
                     </Select.Item>
                     <Select.Item
-                      value="gpt-4"
-                      onClick={() => setSelectedModel("gpt-4")}
+                      value="gpt-4-1106-preview"
+                      onClick={() => setSelectedModel("gpt-4-1106-preview")}
                     >
                       GPT-4 Turbo
                     </Select.Item>
